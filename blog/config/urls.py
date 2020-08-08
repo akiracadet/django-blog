@@ -5,7 +5,7 @@ from django.urls import path
 from config.settings import DEBUG
 
 urlpatterns = [
-
+    path('', include('app.urls')),
 ]
 
 if DEBUG:
