@@ -7,6 +7,7 @@ from config.settings import DEBUG
 urlpatterns = [
     path('', include('app.urls')),
     path('', include('accounts.urls')),
+    path('', include('posts.urls')),
 ]
 
 if DEBUG:
