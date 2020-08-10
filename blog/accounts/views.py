@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 from accounts.forms import RegistrationForm
@@ -40,5 +41,25 @@ class RegistrationView(View):
             return redirect('home')
 
         context['form'] = form
+
+        return render(request, self.template_name, context)
+
+
+class ProfileView(View):
+    template_name = None
+
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        user_data = User.objects.get(pk=request.user.pk)
+        context = {
+            'user_data': {
+                'first_name': user_data.first_name,
+                'last_name': user_data.last_name,
+                'email': user_data.email,
+            },
+        }
 
         return render(request, self.template_name, context)
