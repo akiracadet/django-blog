@@ -5,24 +5,26 @@
 {% block body %}
   <section class="mt-5">
     <div class="container">
-      {% for post in object_list %}
-      <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img src="http://via.placeholder.com/768x768" class="card-img" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">{{ post.content }}</p>
-              <p class="card-text"><small class="text-muted">Last updated, {{ post.updated_at }}</small></p>
+      <div class="row">
+        {% for post in object_list %}
+        <div class="card mb-3 mr-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="http://via.placeholder.com/768x768" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'posts-post' author=post.author pk=post.id %}">{{ post.title }}</a> <small class="text-muted">by <a href="{% url 'posts-author' author=post.author %}">{{ post.author }}</a></small></h5>
+                <p class="card-text">{{ post.content }}</p>
+                <p class="card-text"><small class="text-muted">Last updated, {{ post.updated_at }}</small></p>
+              </div>
             </div>
           </div>
         </div>
+        {% empty %}
+          <h4 class="text-center">No Posts Yet.</h4>
+        {% endfor %}
       </div>
-      {% empty %}
-        <h4 class="text-center">No Posts Yet.</h4>
-      {% endfor %}
     </div>
   </section>
 {% endblock body %}
