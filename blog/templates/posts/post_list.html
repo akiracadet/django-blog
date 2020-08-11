@@ -3,6 +3,18 @@
 {% block title %}Posts{% endblock title %}
 
 {% block body %}
+  {% if user.is_authenticated %}
+  <section class="mt-5">
+   <div class="container">
+     <div>
+      <a href="{% url 'posts-author' author=user.username %}" class="btn btn-primary">My Posts</a>
+      <a href="{% url 'posts-create' %}" class="btn btn-secondary">Create Post</a>
+     </div>
+   </div> 
+  </section>
+  {% endif %}
+
+
   <section class="mt-5">
     <div class="container">
       <div class="row">

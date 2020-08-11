@@ -56,3 +56,36 @@ class PostListAuthorView(View):
         object_list = Post.objects.filter(author__username=author)
 
         return render(request, self.template_name, {'object_list': object_list})
+
+
+class PostCreateView(View):
+    template_name = None
+
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        context = {
+            'form': PostForm()
+        }
+
+        return render(request, self.template_name, context)
+
+
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        post = Post(author=request.user)
+        form = PostForm(request.POST, instance=post)
+
+        context = {
+            'form': form
+        }
+
+        if form.is_valid():
+            form.save()
+        else:
+            return render(request, self.template_name, context)
+
+        return redirect('home')
