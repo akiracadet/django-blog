@@ -116,6 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # AUTHENTICATION settings
 LOGIN_REDIRECT_URL = 'home'
@@ -131,6 +132,3 @@ EMAIL_HOST_USER = os.getenv('SMTP_EMAIL')
 EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-# STATIC settings
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
